@@ -74,6 +74,8 @@ while True:
     client.loop_start()
     if gotNewMessage:
         topic, message = newMessage
+        topic = topic.decode('UTF-8')
+        message = message.decode('UTF-8')
         font = pygame.font.SysFont("quicksand", 85, bold=1)
         textscreen = font.render(str(message), 1, WHITE)
         DISPLAY.fill(BLACK)
