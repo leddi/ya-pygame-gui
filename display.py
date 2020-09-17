@@ -13,8 +13,8 @@ BLUE = (0,0,255)
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 
-gotNewMessage = False
-newMessage = ["topic/topic", "0.00"]
+gotNewMessage = True
+newMessage = ["topic/topic", b'-.---']
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
@@ -37,7 +37,7 @@ client.on_message = on_message
 client.connect("vsrv.ledderboge.net", 1883, 60)
 
 
-def quitgame():
+def quitgui():
     pygame.quit()
     sys.exit()
 
@@ -57,24 +57,11 @@ backimage = pygame.image.load("/home/pi/pygame/image.png")
 backimage.convert_alpha()
 backimage = pygame.transform.scale(backimage,(WIDTH, HEIGHT))
 
-font = pygame.font.SysFont("verdana", 35, bold=1)
+font = pygame.font.SysFont("quicksand", 45, bold=1)
 #textscreen = font.render("ALZ-HOF", 1, BLACK)
 
-print("backgound")
+# display backgound image
 #DISPLAY.blit(backimage, (0, 0), (0, 0, WIDTH, HEIGHT))
-
-print("schrift")
-#DISPLAY.blit(textscreen, (20, 20))
-#pygame.display.update()
-
-
-for i in range(1, 100):
-    textscreen = font.render(str(i), 1, BLACK)
-#   DISPLAY.blit(backimage, (0, 0), (0, 0, WIDTH, HEIGHT))
-    DISPLAY.fill(RED)
-    DISPLAY.blit(textscreen, (20,20))
-    pygame.display.update()
-#    time.sleep(1)
 
 
 while True:
@@ -82,16 +69,15 @@ while True:
     for event in GUI_EVENT.get():
         if event.type == MOUSEBUTTONDOWN:
             print("Mousebutton: " + str(event.button))
-            quitgame()
+            print("MouseXY: " + str(event.pos))
+            quitgui()
     if gotNewMessage:
         topic, message = newMessage
         message = message.decode('UTF-8')
-        font = pygame.font.SysFont("quicksand", 85, bold=1)
         textscreen = font.render(str(message), 1, WHITE)
         DISPLAY.fill(BLACK)
-        DISPLAY.blit(textscreen, (100, 100))
+        DISPLAY.blit(textscreen, (10, 10))
         pygame.display.update()
         gotNewMessage = False
-    #client.loop_stop()
 
 pygame.quit()
