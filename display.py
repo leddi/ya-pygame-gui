@@ -1,7 +1,7 @@
-import os
+import sys, os
 import pygame
+import pygame.event as GUI_EVENTS
 import time
-#from pygame.locals import *
 import paho.mqtt.client as mqtt
 
 os.environ["SDL_VIDEODRIVER"] = "fbcon"
@@ -36,6 +36,11 @@ client.on_message = on_message
 client.connect("vsrv.ledderboge.net", 1883, 60)
 
 
+def quitgame():
+    pygame.quit()
+    sys.exit()
+
+
 pygame.init()
 pygame.mouse.set_visible(False)
 
@@ -57,7 +62,7 @@ font = pygame.font.SysFont("verdana", 35, bold=1)
 print("backgound")
 #DISPLAY.blit(backimage, (0, 0), (0, 0, WIDTH, HEIGHT))
 
-print("schift")
+print("schrift")
 #DISPLAY.blit(textscreen, (20, 20))
 #pygame.display.update()
 
