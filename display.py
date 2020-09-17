@@ -63,9 +63,10 @@ font = pygame.font.SysFont("quicksand", 45, bold=1)
 # display backgound image
 #DISPLAY.blit(backimage, (0, 0), (0, 0, WIDTH, HEIGHT))
 
+client.loop_start()
 
 while True:
-    client.loop_start()
+    #client.loop_start()
     for event in GUI_EVENT.get():
         if event.type == MOUSEBUTTONDOWN:
             print("Mousebutton: " + str(event.button))
