@@ -37,6 +37,7 @@ client.connect("vsrv.ledderboge.net", 1883, 60)
 
 
 pygame.init()
+pygame.mouse.set_visible(False)
 
 DISPLAY = pygame.display.set_mode((0,0), flags=pygame.FULLSCREEN)
 WIDTH=int(DISPLAY.get_width())
