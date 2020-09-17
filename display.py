@@ -1,6 +1,7 @@
 import sys, os
 import pygame
 import pygame.event as GUI_EVENT
+from pygame.locals import *
 import time
 import paho.mqtt.client as mqtt
 
@@ -80,6 +81,7 @@ while True:
     client.loop_start()
     for event in GUI_EVENT.get():
         if event.type == MOUSEBUTTONDOWN:
+            print("Mousebutton: " + str(event.button))
             quitgame()
     if gotNewMessage:
         topic, message = newMessage
