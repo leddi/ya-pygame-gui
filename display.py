@@ -12,20 +12,21 @@ BLUE = (0,0,255)
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 
-NEWMESSAGE = False
-MESSAGE = "0.00"
+gotNewMessage = False
+newMessage = ["topic/topic", "0.00"]
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     client.subscribe("spritpreise/alz/diesel")
+    client.subscribe("counter/down")
 
 def on_message(client, userdata, msg):
-    global NEWMESSAGE
-    NEWMESSAGE = True
-    global MESSAGE
-    MESSAGE = float(msg.payload)
+    global gotNewMessage
+    gotNewMessage = True
+    global newMessage
+    newMessage = [msg.topic, msg.payload]
     print(msg.topic + " " + str(msg.payload))
 
 client = mqtt.Client()
@@ -71,13 +72,14 @@ for i in range(1, 100):
 
 while True:
     client.loop_start()
-    if NEWMESSAGE:
+    if gotNewMessage:
+        topic, message = newMessage
         font = pygame.font.SysFont("quicksand", 85, bold=1)
-        textscreen = font.render(str(MESSAGE), 1, WHITE)
+        textscreen = font.render(str(message), 1, WHITE)
         DISPLAY.fill(BLACK)
         DISPLAY.blit(textscreen, (100, 100))
         pygame.display.update()
-        NEWMESSAGE = False
+        gotNewMessage = False
     #client.loop_stop()
 
 pygame.quit()
