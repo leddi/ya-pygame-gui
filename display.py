@@ -43,6 +43,7 @@ def quitgui():
 
 
 pygame.init()
+pygame.mixer.quit()             # CPUusage hack
 pygame.mouse.set_visible(False)
 
 DISPLAY = pygame.display.set_mode((0,0), flags=pygame.FULLSCREEN)
@@ -63,9 +64,9 @@ font = pygame.font.SysFont("quicksand", 45, bold=1)
 # display backgound image
 #DISPLAY.blit(backimage, (0, 0), (0, 0, WIDTH, HEIGHT))
 
+client.loop_start()
 
 while True:
-    client.loop_start()
     for event in GUI_EVENT.get():
         if event.type == MOUSEBUTTONDOWN:
             print("Mousebutton: " + str(event.button))
@@ -79,5 +80,6 @@ while True:
         DISPLAY.blit(textscreen, (10, 10))
         pygame.display.update()
         gotNewMessage = False
+    pygame.time.wait(0)             # CPUusage hack
 
 pygame.quit()
