@@ -25,7 +25,7 @@ class App:
         pygame.init()
         pygame.mixer.quit()
         flags = FULLSCREEN
-        App.screen = pygame.display.set_mode((640, 240), flags)
+        App.screen = pygame.display.set_mode((0, 0), flags)
         App.t = Text('Pygame App', pos=(20, 20))
 
         App.running = True
