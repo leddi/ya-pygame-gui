@@ -33,10 +33,12 @@ class App:
         pygame.init()
         pygame.mixer.quit()
         if not HP:
+            screensize = (0,0)
             flags = FULLSCREEN
         else:
+            screensize = (480,240)
             flags = RESIZABLE
-        App.screen = pygame.display.set_mode((0, 0), flags)
+        App.screen = pygame.display.set_mode(screensize, flags)
         App.t = Text('Pygame App', pos=(20, 20), fontname="sourcecode-regular.ttf")
 
         App.running = True
