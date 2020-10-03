@@ -51,18 +51,19 @@ class App:
                 if event.type == QUIT:
                     App.running = False
 
-            App.screen.fill(Color('gray'))
-            App.t.draw()
+            #App.screen.fill(Color('green'))
+            #App.t.draw()
             pygame.display.update()
         pygame.quit()    
 
 class Text:
     """Create a text object."""
 
-    def __init__(self, text, pos, fontname, **options):
+    def __init__(self, text, **options):
         self.text = text
-        self.pos = pos
-        self.fontname = fontname
+        self.pos = (20,20)
+        self.fontname = "sourcecode-regular.ttf"
+
         
         self.fontsize = 32
         self.fontcolor = Color('black')
@@ -84,6 +85,28 @@ class Text:
         App.screen.blit(self.img, self.rect)
 
 
+class Scene:
+    id = 0
+    bg = Color('grey')
+    
+    def __init__(self, *args, **kwargs):
+        App.scenes.append(self)
+        App.scene = self
+        self.id = Scene.id
+        Scene.id += 1
+        self.nodes = []
+        self.bg = Scene.bg
+
+    def draw(self):
+        App.screen.fill(self.bg)
+        for node in self.nodes:
+            node.draw()
+        pygame.display.flip()
+
+    def __str__(self):
+        return 'Scene {}'.format(self.id)
+
+
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     # Subscribing in on_connect() means that if we lose the connection and
@@ -99,14 +122,12 @@ def on_message(client, userdata, msg):
     newMessage = [msg.topic, msg.payload]
     print(msg.topic + " " + str(msg.payload))
 
+
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-
 client.connect("vsrv.ledderboge.net", 1883, 60)
-
 client.loop_start()
-
 
 
 if __name__ == '__main__':
