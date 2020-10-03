@@ -5,8 +5,16 @@ from pygame.locals import *
 import time
 import paho.mqtt.client as mqtt
 
-#os.environ["SDL_VIDEODRIVER"] = "fbcon"
-#os.environ["SDL_FBDEV"] = "/dev/fb0"
+
+if len(sys.argv) > 1:
+    HP = True
+else:
+    HP = False
+
+if not HP:
+    os.environ["SDL_VIDEODRIVER"] = "fbcon"
+    os.environ["SDL_FBDEV"] = "/dev/fb0"
+
 RED = (255,0,0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
@@ -24,7 +32,10 @@ class App:
         """Initialize pygame and the application."""
         pygame.init()
         pygame.mixer.quit()
-        flags = FULLSCREEN
+        if not HP:
+            flags = FULLSCREEN
+        else:
+            flags = RESIZABLE
         App.screen = pygame.display.set_mode((0, 0), flags)
         App.t = Text('Pygame App', pos=(20, 20))
 
