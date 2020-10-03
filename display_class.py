@@ -37,7 +37,7 @@ class App:
         else:
             flags = RESIZABLE
         App.screen = pygame.display.set_mode((0, 0), flags)
-        App.t = Text('Pygame App', pos=(20, 20), fontname="/home/pi/pygame/sourcecode-regular.ttf")
+        App.t = Text('Pygame App', pos=(20, 20), fontname="sourcecode-regular.ttf")
 
         App.running = True
 
