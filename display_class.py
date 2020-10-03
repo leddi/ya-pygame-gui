@@ -26,7 +26,7 @@ class App:
         pygame.mixer.quit()
         flags = FULLSCREEN
         App.screen = pygame.display.set_mode((0, 0), flags)
-        App.t = Text('Pygame App', pos=(20, 20))
+        App.t = Text('Pygame App', pos=(20, 20), fontname="/home/pi/pygame/sourcecode-regular.ttf")
 
         App.running = True
 
@@ -46,12 +46,12 @@ class App:
 class Text:
     """Create a text object."""
 
-    def __init__(self, text, pos, **options):
+    def __init__(self, text, pos, fontname, **options):
         self.text = text
         self.pos = pos
-
-        self.fontname = None
-        self.fontsize = 72
+        self.fontname = fontname
+        
+        self.fontsize = 32
         self.fontcolor = Color('black')
         self.set_font()
         self.render()

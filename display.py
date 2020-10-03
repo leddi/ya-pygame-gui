@@ -58,7 +58,7 @@ backimage = pygame.image.load("/home/pi/pygame/image.png")
 backimage.convert_alpha()
 backimage = pygame.transform.scale(backimage,(WIDTH, HEIGHT))
 
-font = pygame.font.SysFont("quicksand", 45, bold=1)
+font = pygame.font.Font("/home/pi/pygame/sourcecode-regular.ttf", 45)
 #textscreen = font.render("ALZ-HOF", 1, BLACK)
 
 # display backgound image
@@ -75,7 +75,7 @@ while True:
     if gotNewMessage:
         topic, message = newMessage
         message = message.decode('UTF-8')
-        textscreen = font.render(str(message), 1, WHITE)
+        textscreen = font.render("Diesel: " + str(message), 1, BLUE)
         DISPLAY.fill(BLACK)
         DISPLAY.blit(textscreen, (10, 10))
         pygame.display.update()
